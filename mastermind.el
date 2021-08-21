@@ -23,17 +23,16 @@
   (setq red-hits-count (- (length code) (length non-red-hits)))
   (setq unchecked-code-elements (mapcar (lambda(pair) (car pair)) non-red-hits))
   (setq unchecked-guess-elements (mapcar (lambda(single) (car (last single))) non-red-hits))
-  (setq white-hits-count (
-    length (
-      seq-filter (
-        lambda (color) (
-          if (member color unchecked-guess-elements) (progn
-              (setq unchecked-code-elements (--remove-first (string= it color) unchecked-code-elements))
-              t
-            )
-            nil
-        ))
-        unchecked-code-elements)))
+  (setq white-hits-count 0)
+  (dolist (color unchecked-guess-elements white-hits-count)
+    (if (member color unchecked-code-elements)
+      (progn
+        (setq unchecked-code-elements (--remove-first (string= it color) unchecked-code-elements))
+        (setq white-hits-count (+ 1 white-hits-count))
+      )
+      nil
+    )
+  )
   (list red-hits-count white-hits-count)
 )
 
@@ -49,11 +48,13 @@
   (defun break-code! ()
     (with-output-to-string (princ "Guessing ") (princ guess))
     (make-guess)
-    (if (= 4 (car (gethash guess guesses))) guess (progn
-      (setq possibilities (calculate-remaining-possibilities guess (gethash guess guesses)))
-      (print (length possibilities))
-      (setq guess (find-best-guess)))
-    nil)
+    (if (= 4 (car (gethash guess guesses))) guess
+      (progn
+        (setq possibilities (calculate-remaining-possibilities guess (gethash guess guesses)))
+        (setq guess (find-best-guess))
+      nil
+      )
+    )
   )
 
   (defun make-guess () (puthash guess (funcall codemaker-check-guess guess) guesses))
