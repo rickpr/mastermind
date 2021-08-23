@@ -104,9 +104,9 @@ If SECOND-LIST is longer, this stops at the end of FIRST-LIST."
     )
 
     (defun break-code! ()
-      (with-output-to-string (princ "Guessing ") (princ guess))
       (make-guess)
-      (if (= 4 (car (gethash guess guesses))) guess
+      (if (= 4 (car (gethash guess guesses)))
+        guess
         (progn
           (setq possibilities (calculate-remaining-possibilities guess (gethash guess guesses)))
           (setq guess (find-best-guess))
@@ -115,7 +115,11 @@ If SECOND-LIST is longer, this stops at the end of FIRST-LIST."
       )
     )
 
-    (defun make-guess () (puthash guess (funcall codemaker-check-guess guess) guesses))
+    (defun make-guess ()
+      "Makes a guess. Expects feedback from the codemaker. Put thinking message here as we will think after."
+      (puthash guess (funcall codemaker-check-guess guess) guesses)
+      (display-message-or-buffer "Thinking, please wait...")
+    )
 
     (defun calculate-remaining-possibilities (guess result)
       "Enumerate possibilities that remain after the RESULT of the current GUESS."
@@ -163,7 +167,11 @@ If SECOND-LIST is longer, this stops at the end of FIRST-LIST."
         (setq solution (break-code!))
         (setq number-of-guesses (+ 1 number-of-guesses))
       )
-      (with-output-to-string (princ "Guesses ") (princ number-of-guesses))
+      (display-message-or-buffer
+        (concat
+          "Guesses: " (number-to-string number-of-guesses)
+          ", solution: " (string-join solution ", "))
+      )
       solution
     )
   )
