@@ -110,7 +110,7 @@ If SECOND-LIST is longer, this stops at the end of FIRST-LIST."
         (progn
           (setq possibilities (calculate-remaining-possibilities guess (gethash guess guesses)))
           (setq guess (find-best-guess))
-        nil
+          (if possibilities nil '("Invalid input, no possibilities remain."))
         )
       )
     )
