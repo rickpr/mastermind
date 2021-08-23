@@ -1,3 +1,5 @@
+Solves [mastermind](https://www.pressmantoy.com/product/mastermind-2/) in 5 moves or less using
+[Knuth's mastermind algorithm](https://www.cs.uni.edu/~wallingf/teaching/cs3530/resources/knuth-mastermind.pdf).
 # Installation
 
 ## Vanilla Emacs
