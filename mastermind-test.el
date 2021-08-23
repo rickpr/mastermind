@@ -83,9 +83,9 @@
 )
 
 (ert-deftest min-by-multiple-elements ()
-  "Should be the largest element as we are subtracting it from 1."
+  "Should be the largest element as we are subtracting it from 4."
   (should (equal
-    (min-by (lambda (x) (- 1 x)) (list 1 2 3))
+    (min-by (lambda (x) (substring (number-to-string (- 4 x)) -1)) (list 1 2 3))
     3
   ))
 )
