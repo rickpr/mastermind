@@ -90,6 +90,19 @@
   ))
 )
 
+;; Testing zip-lists function
+(ert-deftest zip-lists-equal-length-lists ()
+  (should (equal (zip-lists '(1 2) '(3 4)) '((1 3) (2 4))))
+)
+
+(ert-deftest zip-lists-first-list-longer ()
+  (should (equal (zip-lists '(1 2) '(3)) '((1 3) (2 nil))))
+)
+
+(ert-deftest zip-lists-second-list-longer ()
+  (should (equal (zip-lists '(1) '(3 4)) '((1 3))))
+)
+
 ;; Testing code-breaker function (integration tests)
 (ert-deftest code-breaker-red-red-blue-blue ()
   (let ((guess-count 0))

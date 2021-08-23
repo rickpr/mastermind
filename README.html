@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>README.html</title>
+<meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8"/>
+<link rel="stylesheet" type="text/css" media="all" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"  />
+<link rel="stylesheet" type="text/css" media="all" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/github.min.css"  /><meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'><style> body { box-sizing: border-box; max-width: 740px; width: 100%; margin: 40px auto; padding: 0 10px; } </style><script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script><script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js'></script><script>document.addEventListener('DOMContentLoaded', () => { document.body.classList.add('markdown-body'); document.querySelectorAll('pre[lang] > code').forEach((code) => { code.classList.add(code.parentElement.lang); }); document.querySelectorAll('pre > code').forEach((code) => { hljs.highlightBlock(code); }); });</script>
+</head>
+
+<body>
+
+<h1 id="installation">Installation</h1>
+<h2 id="vanilla-emacs">Vanilla Emacs</h2>
+<p>First, clone the repository:</p>
+<pre><code>git clone https://github.com/rickpr/mastermind.git
+</code></pre>
+<p>Then, from within Emacs:</p>
+<ul>
+<li><code>M-x package-install-file</code></li>
+<li>Select <code>mastermind.el</code> from the folder the repo was cloned into (should be <code>mastermind</code>).</li>
+</ul>
+<h2 id="doom-emacs">DOOM Emacs</h2>
+<p>Add to your <code>packages.el</code>:</p>
+<pre><code class="language-elisp">(package! mastermind
+  :recipe (:host github :repo &quot;rickpr/mastermind&quot;))
+</code></pre>
+<p>Then run <code>doom sync -u</code> (usually invoked by <code>~/.emacs.d/bin/doom sync -u</code>) to install.</p>
+<h1 id="usage">Usage</h1>
+<p>Choose a mastermind code and press <code>M-x mastermind</code>. The computer will make a guess.<br>Let the computer know how many red hits and white hits it has, and it will refine its<br>guess until it finds the combination. Should take no more than 5 guesses.</p>
+<h1 id="running-tests">Running tests</h1>
+<p>Load up </p>
+
+
+</body>
+</html>

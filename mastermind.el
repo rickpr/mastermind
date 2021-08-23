@@ -1,4 +1,5 @@
 ;;; mastermind.el --- solves mastermind
+;; Version: 1.0
 ;;; Commentary:
 ;;
 ;; Description:
@@ -48,17 +49,32 @@
   )
 )
 
+(defun zip-lists (first-list second-list)
+  "Create pairs between each successive element of FIRST-LIST and SECOND-LIST.
+If FIRST-LIST is longer, pairs each extra element with NIL.
+If SECOND-LIST is longer, this stops at the end of FIRST-LIST."
+  (let ((index -1))
+    (mapcar
+      (lambda (element) (progn
+        (setq index (+ 1 index))
+        (list element (elt second-list index))
+      ))
+      first-list
+    )
+  )
+)
+
 (defun elements-in-common (first-list second-list)
   "Get elements in common between FIRST-LIST and SECOND-LIST, counting duplicates."
   (let (common-elements)
     (dolist (element first-list common-elements)
-        (if (member element second-list)
-          (progn
-            (setq second-list (remove-first element second-list))
-            (setq common-elements (cons element common-elements))
-          )
-          nil
+      (if (member element second-list)
+        (progn
+          (setq second-list (remove-first element second-list))
+          (setq common-elements (cons element common-elements))
         )
+        nil
+      )
     )
   )
 )
@@ -66,7 +82,7 @@
 (defun check-guess (code guess)
   "Return pegs for an individual GUESS against a CODE."
   (let* (
-      (pairs (-zip-lists code guess))
+      (pairs (zip-lists code guess))
       (non-red-hits (seq-remove (lambda (color) (apply #'string= color)) pairs))
       (red-hits-count (- (length code) (length non-red-hits)))
       (unchecked-code-elements (mapcar (lambda(pair) (car pair)) non-red-hits))
